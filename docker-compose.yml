@@ -1,0 +1,17 @@
+services:
+  quarkus-app:
+    build:
+      context: ./quarkus-app
+      dockerfile: src/main/docker/Dockerfile.jvm
+    depends_on:
+      - remote-service
+    environment:
+      - QUARKUS_REST_CLIENT_REMOTE_SERVICE_URL=http://remote-service:3000
+    ports:
+      - "8080:8080"
+
+  remote-service:
+    build:
+      context: ./remote-service
+    ports:
+      - "3000:3000"
